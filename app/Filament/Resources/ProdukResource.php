@@ -57,9 +57,14 @@ class ProdukResource extends Resource
                             ->currencyMask(thousandSeparator: '.', decimalSeparator: ',', precision: 0)
                             ->prefix('Rp')
                             ->numeric(),
-                        // Forms\Components\TextInput::make('gambar')
-                        //     ->required()
-                        //     ->maxLength(255),
+                        Forms\Components\FileUpload::make('gambar')
+                            ->label('Gambar')
+                            ->image()
+                            ->imageEditor()
+                            ->required()
+                            ->acceptedFileTypes(['image/png', 'image/jpg', 'image/jpeg'])
+                            ->maxSize(2048)
+                            ->directory('produk'),
                     ])
                     ->columns(2),
             ]);
