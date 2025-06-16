@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('produk', function (Blueprint $table) {
+        Schema::create('voucher', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('kategori_id')->nullable();
+            $table->uuid('user_id')->nullable();
             $table->string('nama');
-            $table->text('deskripsi')->nullable();
-            $table->double('harga');
-            $table->string('gambar')->nullable();
-            $table->enum('status', ['Tersedia', 'Habis']);
-        $table->timestamps();
+            $table->text('deskripsi');
+            $table->enum('tipe', ['Persentase', 'Nominal']);
+            $table->double('diskon')->default(0);
+            $table->integer('kuota')->nullable();
+            $table->timestamps();
             $table->softDeletes();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('produk');
+        Schema::dropIfExists('voucher');
     }
 };

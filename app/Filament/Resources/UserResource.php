@@ -58,6 +58,14 @@ class UserResource extends Resource
                             ->relationship('roles', 'name')
                             ->preload()
                             ->searchable(),
+                        Forms\Components\TextInput::make('telepon')
+                            ->label('Telepon')
+                            ->tel()
+                            ->required()
+                            ->maxLength(20),
+                        Forms\Components\Textarea::make('alamat')
+                            ->required()
+                            ->columnSpanFull(),
                     ])
                     ->columns(2),
             ]);

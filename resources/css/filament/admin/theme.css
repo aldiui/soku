@@ -1,0 +1,67 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@config 'tailwind.config.js';
+
+
+.fi-sidebar-item-active>a {
+    @apply bg-amber-400;
+
+    >svg,
+    >span {
+        @apply text-amber-400;
+    }
+
+    &:hover {
+        @apply bg-amber-400;
+    }
+}
+
+.fi-ta-table>thead>tr {
+    @apply bg-amber-500 dark:divide-white/5;
+}
+
+.fi-ta-header-cell-label {
+    @apply text-white;
+}
+
+.fi-ta-row {
+    @apply divide-x divide-gray-200 dark:divide-white/5;
+}
+
+.fi-sidebar-item>a {
+    >svg,
+    >span {
+        @apply text-white;
+    }
+
+    &:hover {
+        @apply bg-amber-400;
+    }
+}
+
+.fi-layout {
+    @apply bg-gradient-to-b from-slate-100 to-slate-200;
+}
+
+.fi-sidebar {
+    @apply bg-gradient-to-b from-amber-600 to-amber-800;
+}
+.fi-sidebar-group .fi-sidebar-group-icon {
+    @apply text-white
+}
+
+.fi-sidebar-header {
+    @apply bg-gradient-to-b from-amber-600 to-amber-800;
+}
+
+.fi-simple-layout {
+    @apply bg-gradient-to-b from-amber-600 to-amber-800;
+}
+
+.fi-logo {
+    @apply bg-white p-6 rounded-lg;
+}
+
+.fi-sidebar-group-label {
+    @apply text-white opacity-90;
+}

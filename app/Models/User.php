@@ -1,15 +1,18 @@
 <?php
 namespace App\Models;
 
-use App\Models\User;
-use BezhanSalleh\FilamentShield\Traits\HasPanelShield;
 use Filament\Panel;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use App\Models\User;
+use App\Models\Banner;
+use App\Models\Voucher;
+use App\Models\Transaksi;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use BezhanSalleh\FilamentShield\Traits\HasPanelShield;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -19,9 +22,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'created_by',
-        'updated_by',
-        'deleted_by',
+        'telepon',
+        'alamat'
     ];
 
     protected $hidden = [
@@ -42,36 +44,18 @@ class User extends Authenticatable
         return true;
     }
 
-    public function createdBy()
+    public function banners()
     {
-        return $this->belongsTo(User::class, 'created_by');
+        return $this->hasMany(Banner::class);
     }
 
-    public function updatedBy()
+    public function transaksis()
     {
-        return $this->belongsTo(User::class, 'updated_by');
+        return $this->hasMany(Transaksi::class);
     }
 
-    public function deletedBy()
+    public function vouchers()
     {
-        return $this->belongsTo(User::class, 'deleted_by');
-    }
-
-    public static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            $model->created_by = auth()->check() ? auth()->user()->id : null;
-            $model->updated_by = auth()->check() ? auth()->user()->id : null;
-        });
-
-        static::updating(function ($model) {
-            $model->updated_by = auth()->check() ? auth()->user()->id : null;
-        });
-
-        static::deleting(function ($model) {
-            $model->deleted_by = auth()->check() ? auth()->user()->id : null;
-        });
+        return $this->hasMany(Voucher::class);
     }
 }

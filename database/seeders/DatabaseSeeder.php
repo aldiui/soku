@@ -77,7 +77,6 @@ class DatabaseSeeder extends Seeder
                 Produk::create([
                     'kategori_id' => $bucket->id,
                     'nama' => $product['nama'] . ' Paket ' . ($key + 1),
-                    'slug' => Str::slug($product['nama'] . ' Paket ' . ($key + 1)),
                     'deskripsi' => $product['deskripsi'] . ' - Paket ' . ($key + 1),
                     'harga' => $harga
                 ]);
@@ -90,7 +89,6 @@ class DatabaseSeeder extends Seeder
                 Produk::create([
                     'kategori_id' => $kue->id,
                     'nama' => $product['nama'] . ' Paket ' . ($key + 1),
-                    'slug' => Str::slug($product['nama'] . ' Paket ' . ($key + 1)),
                     'deskripsi' => $product['deskripsi'] . ' - Paket ' . ($key + 1),
                     'harga' => $harga
                 ]);

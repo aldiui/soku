@@ -1,53 +1,45 @@
 <?php
+
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ProdukResource\Pages;
-use App\Models\Produk;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Enums\FiltersLayout;
+use App\Models\Banner;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Tables\Enums\FiltersLayout;
+use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\BannerResource\Pages;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\BannerResource\RelationManagers;
 
-class ProdukResource extends Resource
+class BannerResource extends Resource
 {
-    protected static ?string $model = Produk::class;
+    protected static ?string $model = Banner::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
+    protected static ?string $navigationIcon = 'heroicon-o-photo';
 
-    protected static ?string $navigationLabel = 'Produk';
+    protected static ?string $navigationLabel = 'Banner';
 
     protected static ?string $navigationGroup = 'Master';
 
-    protected static ?string $slug = 'produk';
+    protected static ?string $slug = 'banner';
 
-    protected static ?int $navigationSort = 4;
+    protected static ?int $navigationSort = 6;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Produk')
+                Forms\Components\Section::make('Banner')
                     ->schema([
-                        Forms\Components\Select::make('kategori_id')
-                            ->label('Kategori')
-                            ->relationship('kategori', 'nama')
-                            ->searchable()
-                            ->preload()
-                            ->required(),
-                        Forms\Components\TextInput::make('nama')
+                        Forms\Components\TextInput::make('judul')
                             ->required()
-                            ->unique(ignoreRecord: true)
                             ->maxLength(255),
                         Forms\Components\RichEditor::make('deskripsi')
                             ->required()
                             ->columnSpanFull(),
-                        Forms\Components\TextInput::make('harga')
-                            ->required()
-                            ->currencyMask(thousandSeparator: '.', decimalSeparator: ',', precision: 0)
-                            ->prefix('Rp')
-                            ->numeric(),
                         Forms\Components\FileUpload::make('gambar')
                             ->label('Gambar')
                             ->image()
@@ -55,7 +47,7 @@ class ProdukResource extends Resource
                             ->required()
                             ->acceptedFileTypes(['image/png', 'image/jpg', 'image/jpeg'])
                             ->maxSize(2048)
-                            ->directory('produk'),
+                            ->directory('banner'),
                     ])
                     ->columns(2),
             ]);
@@ -65,24 +57,11 @@ class ProdukResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('nama')
-                    ->numeric()
-                    ->searchable()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('kategori.nama')
-                    ->numeric()
-                    ->searchable()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('harga')
-                    ->numeric()
-                    ->prefix('Rp ')
+                Tables\Columns\TextColumn::make('judul')
                     ->searchable()
                     ->sortable(),
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('kategori_id')
-                    ->label('Kategori')
-                    ->relationship('kategori', 'nama'),
                 Tables\Filters\TrashedFilter::make(),
             ], layout: FiltersLayout::AboveContent)
             ->actions([
@@ -111,9 +90,9 @@ class ProdukResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index'  => Pages\ListProduks::route('/'),
-            'create' => Pages\CreateProduk::route('/create'),
-            'edit'   => Pages\EditProduk::route('/{record}/edit'),
+            'index' => Pages\ListBanners::route('/'),
+            'create' => Pages\CreateBanner::route('/create'),
+            'edit' => Pages\EditBanner::route('/{record}/edit'),
         ];
     }
 }
