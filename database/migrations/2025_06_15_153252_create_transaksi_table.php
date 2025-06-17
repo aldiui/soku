@@ -21,7 +21,7 @@ return new class extends Migration
             $table->double('diskon')->default(0);
             $table->double('total_bayar');
             $table->text('catatan')->nullable();
-            $table->enum('status', ['Baru', 'Diproses', 'Selesai', 'Dibatalkan']);
+            $table->enum('status', ['Pending', 'Selesai', 'Dibatalkan']);
             $table->timestamps();
             $table->softDeletes();
         });
